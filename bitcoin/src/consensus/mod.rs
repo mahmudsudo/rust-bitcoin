@@ -6,12 +6,12 @@
 //! conform to Bitcoin consensus.
 
 pub mod encode;
+mod error;
 #[cfg(feature = "serde")]
 pub mod serde;
 
 use core::fmt;
 
-use internals::write_err;
 use io::{BufRead, Read};
 
 use crate::consensus;
@@ -20,6 +20,7 @@ use crate::consensus;
 #[doc(inline)]
 pub use self::{
     encode::{deserialize, deserialize_partial, serialize, Decodable, Encodable, ReadExt, WriteExt},
+    error::{Error, FromHexError, DecodeError},
 };
 
 struct IterReader<E: fmt::Debug, I: Iterator<Item = Result<u8, E>>> {
@@ -102,6 +103,7 @@ impl<E: fmt::Debug, I: Iterator<Item = Result<u8, E>>> BufRead for IterReader<E,
         }
     }
 }
+<<<<<<< HEAD
 
 /// Error when consensus decoding from an `[IterReader]`.
 #[derive(Debug)]
@@ -142,3 +144,5 @@ impl<E: fmt::Debug> std::error::Error for DecodeError<E> {
         }
     }
 }
+=======
+>>>>>>> a6254212 (Move consensus error code to submodule)

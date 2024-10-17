@@ -14,27 +14,28 @@
 //! scripts come with an opcode decode, hashes are big-endian, numbers are
 //! typically big-endian decimals, etc.)
 
-use core::{fmt, mem};
+use core::mem;
 
 use hashes::{sha256, sha256d, GeneralHash, Hash};
-use hex::error::{InvalidCharError, OddLengthStringError};
-use internals::{compact_size, write_err, ToU64};
+use hex::DisplayHex as _;
+use internals::{compact_size, ToU64};
 use io::{BufRead, Cursor, Read, Write};
 
+use super::IterReader;
 use crate::bip152::{PrefilledTransaction, ShortId};
 use crate::bip158::{FilterHash, FilterHeader};
 use crate::block::{self, BlockHash};
-use crate::consensus::{DecodeError, IterReader};
 use crate::merkle_tree::TxMerkleNode;
 #[cfg(feature = "std")]
 use crate::p2p::{
     address::{AddrV2Message, Address},
     message_blockdata::Inventory,
 };
-use crate::prelude::{rc, sync, Box, Cow, DisplayHex, String, Vec};
+use crate::prelude::{rc, sync, Box, Cow, String, Vec};
 use crate::taproot::TapLeafHash;
 use crate::transaction::{Transaction, TxIn, TxOut};
 
+<<<<<<< HEAD
 /// Encoding error.
 #[derive(Debug)]
 #[non_exhaustive]
@@ -144,6 +145,10 @@ impl From<OddLengthStringError> for FromHexError {
     #[inline]
     fn from(e: OddLengthStringError) -> Self { Self::OddLengthString(e) }
 }
+=======
+#[rustfmt::skip]                // Keep public re-exports separate.
+pub use super::{Error, FromHexError};
+>>>>>>> a6254212 (Move consensus error code to submodule)
 
 /// Encodes an object into a vector.
 pub fn serialize<T: Encodable + ?Sized>(data: &T) -> Vec<u8> {
@@ -863,6 +868,7 @@ impl Decodable for TapLeafHash {
 
 #[cfg(test)]
 mod tests {
+    use core::fmt;
     use core::mem::discriminant;
 
     use super::*;
