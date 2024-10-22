@@ -71,14 +71,17 @@ impl fmt::Display for Error {
 
         match *self {
             Io(ref e) => write_err!(f, "IO error"; e),
-            OversizedVectorAllocation { requested: ref r, max: ref m } =>
-                write!(f, "allocation of oversized vector: requested {}, maximum {}", r, m),
-            InvalidChecksum { expected: ref e, actual: ref a } =>
-                write!(f, "invalid checksum: expected {:x}, actual {:x}", e.as_hex(), a.as_hex()),
+            OversizedVectorAllocation { requested: ref r, max: ref m } => {
+                write!(f, "allocation of oversized vector: requested {}, maximum {}", r, m)
+            }
+            InvalidChecksum { expected: ref e, actual: ref a } => {
+                write!(f, "invalid checksum: expected {:x}, actual {:x}", e.as_hex(), a.as_hex())
+            }
             NonMinimalVarInt => write!(f, "non-minimal varint"),
             ParseFailed(ref s) => write!(f, "parse failed: {}", s),
-            UnsupportedSegwitFlag(ref swflag) =>
-                write!(f, "unsupported segwit version: {}", swflag),
+            UnsupportedSegwitFlag(ref swflag) => {
+                write!(f, "unsupported segwit version: {}", swflag)
+            }
         }
     }
 }
@@ -117,8 +120,9 @@ impl fmt::Display for FromHexError {
         use FromHexError::*;
 
         match *self {
-            OddLengthString(ref e) =>
-                write_err!(f, "odd length, failed to create bytes from hex"; e),
+            OddLengthString(ref e) => {
+                write_err!(f, "odd length, failed to create bytes from hex"; e)
+            }
             Decode(ref e) => write_err!(f, "decoding error"; e),
         }
     }
