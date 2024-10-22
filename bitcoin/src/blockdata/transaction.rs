@@ -136,7 +136,9 @@ impl TxIn {
     ///  this input then the script execution will fail [BIP-0065].
     ///
     /// [BIP-65](https://github.com/bitcoin/bips/blob/master/bip-0065.mediawiki)
-    pub fn enables_lock_time(&self) -> bool { self.sequence != Sequence::MAX }
+    pub fn enables_lock_time(&self) -> bool {
+        self.sequence != Sequence::MAX
+    }
 
     /// The weight of the TxIn when it's included in a legacy transaction (i.e., a transaction
     /// having only legacy inputs).
@@ -182,7 +184,9 @@ impl TxIn {
     /// Returns the total number of bytes that this input contributes to a transaction.
     ///
     /// Total size includes the witness data (for base size see [`Self::base_size`]).
-    pub fn total_size(&self) -> usize { self.base_size() + self.witness.size() }
+    pub fn total_size(&self) -> usize {
+        self.base_size() + self.witness.size()
+    }
 }
 
 /// Bitcoin transaction output.
@@ -352,7 +356,9 @@ pub struct Transaction {
 }
 
 impl cmp::PartialOrd for Transaction {
-    fn partial_cmp(&self, other: &Self) -> Option<cmp::Ordering> { Some(self.cmp(other)) }
+    fn partial_cmp(&self, other: &Self) -> Option<cmp::Ordering> {
+        Some(self.cmp(other))
+    }
 }
 impl cmp::Ord for Transaction {
     fn cmp(&self, other: &Self) -> cmp::Ordering {
@@ -374,7 +380,9 @@ impl Transaction {
     /// This method is deprecated.  `ntxid` has been renamed to `compute_ntxid` to note that it's
     /// computationally expensive.  Use `compute_ntxid` instead.
     #[deprecated(since = "0.31.0", note = "use `compute_ntxid()` instead")]
-    pub fn ntxid(&self) -> sha256d::Hash { self.compute_ntxid() }
+    pub fn ntxid(&self) -> sha256d::Hash {
+        self.compute_ntxid()
+    }
 
     /// Computes a "normalized TXID" which does not include any signatures.
     ///
@@ -404,7 +412,9 @@ impl Transaction {
     /// This method is deprecated.  `txid` has been renamed to `compute_txid` to note that it's
     /// computationally expensive.  Use `compute_txid` instead.
     #[deprecated(since = "0.31.0", note = "use `compute_txid()` instead")]
-    pub fn txid(&self) -> Txid { self.compute_txid() }
+    pub fn txid(&self) -> Txid {
+        self.compute_txid()
+    }
 
     /// Computes the [`Txid`].
     ///
@@ -426,7 +436,9 @@ impl Transaction {
     /// This method is deprecated.  `wtxid` has been renamed to `compute_wtxid` to note that it's
     /// computationally expensive.  Use `compute_wtxid` instead.
     #[deprecated(since = "0.31.0", note = "use `compute_wtxid()` instead")]
-    pub fn wtxid(&self) -> Wtxid { self.compute_wtxid() }
+    pub fn wtxid(&self) -> Wtxid {
+        self.compute_wtxid()
+    }
 
     /// Computes the segwit version of the transaction id.
     ///
@@ -564,7 +576,9 @@ impl Transaction {
     /// Returns `true` if this transactions nLockTime is enabled ([BIP-65]).
     ///
     /// [BIP-65]: https://github.com/bitcoin/bips/blob/master/bip-0065.mediawiki
-    pub fn is_lock_time_enabled(&self) -> bool { self.input.iter().any(|i| i.enables_lock_time()) }
+    pub fn is_lock_time_enabled(&self) -> bool {
+        self.input.iter().any(|i| i.enables_lock_time())
+    }
 
     /// Returns an iterator over lengths of `script_pubkey`s in the outputs.
     ///
@@ -730,11 +744,15 @@ impl fmt::Display for InputsIndexError {
 
 #[cfg(feature = "std")]
 impl std::error::Error for InputsIndexError {
-    fn source(&self) -> Option<&(dyn std::error::Error + 'static)> { Some(&self.0) }
+    fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
+        Some(&self.0)
+    }
 }
 
 impl From<IndexOutOfBoundsError> for InputsIndexError {
-    fn from(e: IndexOutOfBoundsError) -> Self { Self(e) }
+    fn from(e: IndexOutOfBoundsError) -> Self {
+        Self(e)
+    }
 }
 
 /// Error attempting to do an out of bounds access on the transaction outputs vector.
@@ -749,11 +767,15 @@ impl fmt::Display for OutputsIndexError {
 
 #[cfg(feature = "std")]
 impl std::error::Error for OutputsIndexError {
-    fn source(&self) -> Option<&(dyn std::error::Error + 'static)> { Some(&self.0) }
+    fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
+        Some(&self.0)
+    }
 }
 
 impl From<IndexOutOfBoundsError> for OutputsIndexError {
-    fn from(e: IndexOutOfBoundsError) -> Self { Self(e) }
+    fn from(e: IndexOutOfBoundsError) -> Self {
+        Self(e)
+    }
 }
 
 /// Error attempting to do an out of bounds access on a vector.
@@ -774,7 +796,9 @@ impl fmt::Display for IndexOutOfBoundsError {
 
 #[cfg(feature = "std")]
 impl std::error::Error for IndexOutOfBoundsError {
-    fn source(&self) -> Option<&(dyn std::error::Error + 'static)> { None }
+    fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
+        None
+    }
 }
 
 crate::internal_macros::define_extension_trait! {
@@ -920,19 +944,27 @@ impl Decodable for Transaction {
 }
 
 impl From<Transaction> for Txid {
-    fn from(tx: Transaction) -> Txid { tx.compute_txid() }
+    fn from(tx: Transaction) -> Txid {
+        tx.compute_txid()
+    }
 }
 
 impl From<&Transaction> for Txid {
-    fn from(tx: &Transaction) -> Txid { tx.compute_txid() }
+    fn from(tx: &Transaction) -> Txid {
+        tx.compute_txid()
+    }
 }
 
 impl From<Transaction> for Wtxid {
-    fn from(tx: Transaction) -> Wtxid { tx.compute_wtxid() }
+    fn from(tx: Transaction) -> Wtxid {
+        tx.compute_wtxid()
+    }
 }
 
 impl From<&Transaction> for Wtxid {
-    fn from(tx: &Transaction) -> Wtxid { tx.compute_wtxid() }
+    fn from(tx: &Transaction) -> Wtxid {
+        tx.compute_wtxid()
+    }
 }
 
 /// Computes the value of an output accounting for the cost of spending it.
@@ -2069,7 +2101,9 @@ mod tests {
                 .unwrap(),
             )
         }
-        fn return_none(_outpoint: &OutPoint) -> Option<TxOut> { None }
+        fn return_none(_outpoint: &OutPoint) -> Option<TxOut> {
+            None
+        }
 
         for (hx, expected, spent_fn, expected_none) in tx_hexes.iter() {
             let tx_bytes = hex!(hx);

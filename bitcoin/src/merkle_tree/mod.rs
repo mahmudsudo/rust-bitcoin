@@ -93,7 +93,9 @@ pub trait MerkleNode: Copy {
 // provided methods in the trait definition.
 impl MerkleNode for TxMerkleNode {
     type Leaf = Txid;
-    fn from_leaf(leaf: Self::Leaf) -> Self { Self::from_byte_array(leaf.to_byte_array()) }
+    fn from_leaf(leaf: Self::Leaf) -> Self {
+        Self::from_byte_array(leaf.to_byte_array())
+    }
 
     fn combine(&self, other: &Self) -> Self {
         let mut encoder = sha256d::Hash::engine();
@@ -104,7 +106,9 @@ impl MerkleNode for TxMerkleNode {
 }
 impl MerkleNode for WitnessMerkleNode {
     type Leaf = Wtxid;
-    fn from_leaf(leaf: Self::Leaf) -> Self { Self::from_byte_array(leaf.to_byte_array()) }
+    fn from_leaf(leaf: Self::Leaf) -> Self {
+        Self::from_byte_array(leaf.to_byte_array())
+    }
 
     fn combine(&self, other: &Self) -> Self {
         let mut encoder = sha256d::Hash::engine();

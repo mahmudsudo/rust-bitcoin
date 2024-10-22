@@ -634,7 +634,9 @@ impl BeneficiaryWallet {
         Ok(Self { master_xpriv, secp: Secp256k1::new() })
     }
 
-    fn master_xpub(&self) -> Xpub { Xpub::from_xpriv(&self.secp, &self.master_xpriv) }
+    fn master_xpub(&self) -> Xpub {
+        Xpub::from_xpriv(&self.secp, &self.master_xpriv)
+    }
 
     fn spend_inheritance(
         &self,

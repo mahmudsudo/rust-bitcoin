@@ -105,7 +105,9 @@ impl WitnessProgram {
     }
 
     /// Returns the witness program version.
-    pub fn version(&self) -> WitnessVersion { self.version }
+    pub fn version(&self) -> WitnessVersion {
+        self.version
+    }
 
     /// Returns the witness program.
     pub fn program(&self) -> &PushBytes {
@@ -126,7 +128,9 @@ impl WitnessProgram {
     }
 
     /// Returns true if this witness program is for a P2TR output.
-    pub fn is_p2tr(&self) -> bool { self.version == WitnessVersion::V1 && self.program.len() == 32 }
+    pub fn is_p2tr(&self) -> bool {
+        self.version == WitnessVersion::V1 && self.program.len() == 32
+    }
 }
 
 /// Witness program error.
@@ -146,10 +150,12 @@ impl fmt::Display for Error {
         use Error::*;
 
         match *self {
-            InvalidLength(len) =>
-                write!(f, "witness program must be between 2 and 40 bytes: length={}", len),
-            InvalidSegwitV0Length(len) =>
-                write!(f, "a v0 witness program must be either 20 or 32 bytes: length={}", len),
+            InvalidLength(len) => {
+                write!(f, "witness program must be between 2 and 40 bytes: length={}", len)
+            }
+            InvalidSegwitV0Length(len) => {
+                write!(f, "a v0 witness program must be either 20 or 32 bytes: length={}", len)
+            }
         }
     }
 }
@@ -172,13 +178,15 @@ mod tests {
     #[test]
     fn witness_program_is_too_short() {
         let arbitrary_bytes = [0x00; MIN_SIZE - 1];
-        assert!(WitnessProgram::new(WitnessVersion::V15, &arbitrary_bytes).is_err()); // Arbitrary version
+        assert!(WitnessProgram::new(WitnessVersion::V15, &arbitrary_bytes).is_err());
+        // Arbitrary version
     }
 
     #[test]
     fn witness_program_is_too_long() {
         let arbitrary_bytes = [0x00; MAX_SIZE + 1];
-        assert!(WitnessProgram::new(WitnessVersion::V15, &arbitrary_bytes).is_err()); // Arbitrary version
+        assert!(WitnessProgram::new(WitnessVersion::V15, &arbitrary_bytes).is_err());
+        // Arbitrary version
     }
 
     #[test]

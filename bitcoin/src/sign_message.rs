@@ -54,8 +54,9 @@ mod message_signing {
                 InvalidLength => write!(f, "length not 65 bytes"),
                 InvalidEncoding(ref e) => write_err!(f, "invalid encoding"; e),
                 InvalidBase64 => write!(f, "invalid base64"),
-                UnsupportedAddressType(ref address_type) =>
-                    write!(f, "unsupported address type: {}", address_type),
+                UnsupportedAddressType(ref address_type) => {
+                    write!(f, "unsupported address type: {}", address_type)
+                }
             }
         }
     }
@@ -101,7 +102,7 @@ mod message_signing {
         pub fn serialize(&self) -> [u8; 65] {
             let (recid, raw) = self.signature.serialize_compact();
             let mut serialized = [0u8; 65];
-            serialized[0] =  Into::<i32>::into(recid) as u8 + if self.compressed { 31 } else { 27 };
+            serialized[0] = Into::<i32>::into(recid) as u8 + if self.compressed { 31 } else { 27 };
             serialized[1..].copy_from_slice(&raw[..]);
             serialized
         }
@@ -154,8 +155,9 @@ mod message_signing {
                     let pubkey = self.recover_pubkey(secp_ctx, msg_hash)?;
                     Ok(address.pubkey_hash() == Some(pubkey.pubkey_hash()))
                 }
-                Some(address_type) =>
-                    Err(MessageSignatureError::UnsupportedAddressType(address_type)),
+                Some(address_type) => {
+                    Err(MessageSignatureError::UnsupportedAddressType(address_type))
+                }
                 None => Ok(false),
             }
         }
@@ -182,7 +184,9 @@ mod message_signing {
             }
 
             /// Convert to base64 encoding.
-            pub fn to_base64(self) -> String { BASE64_STANDARD.encode(self.serialize()) }
+            pub fn to_base64(self) -> String {
+                BASE64_STANDARD.encode(self.serialize())
+            }
         }
 
         impl fmt::Display for MessageSignature {

@@ -70,7 +70,9 @@ pub struct PrefilledTransaction {
 }
 
 impl convert::AsRef<Transaction> for PrefilledTransaction {
-    fn as_ref(&self) -> &Transaction { &self.tx }
+    fn as_ref(&self) -> &Transaction {
+        &self.tx
+    }
 }
 
 impl Encodable for PrefilledTransaction {
@@ -246,8 +248,9 @@ impl HeaderAndShortIds {
                 });
             } else {
                 match version {
-                    1 =>
-                        short_ids.push(ShortId::with_siphash_keys(&tx.compute_txid(), siphash_keys)),
+                    1 => {
+                        short_ids.push(ShortId::with_siphash_keys(&tx.compute_txid(), siphash_keys))
+                    }
                     2 => short_ids
                         .push(ShortId::with_siphash_keys(&tx.compute_wtxid(), siphash_keys)),
                     _ => unreachable!(),
@@ -359,7 +362,9 @@ impl fmt::Display for TxIndexOutOfRangeError {
 
 #[cfg(feature = "std")]
 impl error::Error for TxIndexOutOfRangeError {
-    fn source(&self) -> Option<&(dyn std::error::Error + 'static)> { None }
+    fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
+        None
+    }
 }
 
 /// A [`BlockTransactions`] structure is used to provide some of the transactions

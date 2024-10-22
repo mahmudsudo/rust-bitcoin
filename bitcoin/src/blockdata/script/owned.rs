@@ -210,11 +210,15 @@ pub(crate) struct ScriptBufAsVec<'a>(&'a mut ScriptBuf, Vec<u8>);
 impl<'a> core::ops::Deref for ScriptBufAsVec<'a> {
     type Target = Vec<u8>;
 
-    fn deref(&self) -> &Self::Target { &self.1 }
+    fn deref(&self) -> &Self::Target {
+        &self.1
+    }
 }
 
 impl<'a> core::ops::DerefMut for ScriptBufAsVec<'a> {
-    fn deref_mut(&mut self) -> &mut Self::Target { &mut self.1 }
+    fn deref_mut(&mut self) -> &mut Self::Target {
+        &mut self.1
+    }
 }
 
 impl<'a> Drop for ScriptBufAsVec<'a> {

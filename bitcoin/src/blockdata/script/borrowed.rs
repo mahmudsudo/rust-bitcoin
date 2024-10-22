@@ -489,21 +489,31 @@ impl Iterator for Bytes<'_> {
     type Item = u8;
 
     #[inline]
-    fn next(&mut self) -> Option<Self::Item> { self.0.next() }
+    fn next(&mut self) -> Option<Self::Item> {
+        self.0.next()
+    }
 
     #[inline]
-    fn size_hint(&self) -> (usize, Option<usize>) { self.0.size_hint() }
+    fn size_hint(&self) -> (usize, Option<usize>) {
+        self.0.size_hint()
+    }
 
     #[inline]
-    fn nth(&mut self, n: usize) -> Option<Self::Item> { self.0.nth(n) }
+    fn nth(&mut self, n: usize) -> Option<Self::Item> {
+        self.0.nth(n)
+    }
 }
 
 impl DoubleEndedIterator for Bytes<'_> {
     #[inline]
-    fn next_back(&mut self) -> Option<Self::Item> { self.0.next_back() }
+    fn next_back(&mut self) -> Option<Self::Item> {
+        self.0.next_back()
+    }
 
     #[inline]
-    fn nth_back(&mut self, n: usize) -> Option<Self::Item> { self.0.nth_back(n) }
+    fn nth_back(&mut self, n: usize) -> Option<Self::Item> {
+        self.0.nth_back(n)
+    }
 }
 
 impl ExactSizeIterator for Bytes<'_> {}

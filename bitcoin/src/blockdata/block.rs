@@ -112,7 +112,9 @@ impl_consensus_encoding!(Block, header, txdata);
 
 impl Block {
     /// Returns the block hash.
-    pub fn block_hash(&self) -> BlockHash { self.header.block_hash() }
+    pub fn block_hash(&self) -> BlockHash {
+        self.header.block_hash()
+    }
 
     /// Checks if Merkle root of header matches Merkle root of the transaction list.
     pub fn check_merkle_root(&self) -> bool {
@@ -228,7 +230,9 @@ impl Block {
     }
 
     /// Returns the coinbase transaction, if one is present.
-    pub fn coinbase(&self) -> Option<&Transaction> { self.txdata.first() }
+    pub fn coinbase(&self) -> Option<&Transaction> {
+        self.txdata.first()
+    }
 
     /// Returns the block height, as encoded in the coinbase transaction according to BIP34.
     pub fn bip34_block_height(&self) -> Result<u64, Bip34Error> {
@@ -266,11 +270,15 @@ impl Block {
 }
 
 impl From<Block> for BlockHash {
-    fn from(block: Block) -> BlockHash { block.block_hash() }
+    fn from(block: Block) -> BlockHash {
+        block.block_hash()
+    }
 }
 
 impl From<&Block> for BlockHash {
-    fn from(block: &Block) -> BlockHash { block.block_hash() }
+    fn from(block: &Block) -> BlockHash {
+        block.block_hash()
+    }
 }
 
 /// An error when looking up a BIP34 block height.
