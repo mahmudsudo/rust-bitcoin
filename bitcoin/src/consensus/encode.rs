@@ -1284,7 +1284,7 @@ mod tests {
         hex.push_str("abcdef");
         assert!(matches!(
             deserialize_hex::<Transaction>(&hex).unwrap_err(),
-            FromHexError::Decode(DecodeError::TooManyBytes)
+            FromHexError::Decode(DecodeError::Unconsumed)
         ));
     }
 }
