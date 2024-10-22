@@ -29,9 +29,7 @@ macro_rules! impl_psbt_deserialize {
 macro_rules! impl_psbt_serialize {
     ($thing:ty) => {
         impl $crate::psbt::serialize::Serialize for $thing {
-            fn serialize(&self) -> $crate::prelude::Vec<u8> {
-                $crate::consensus::serialize(self)
-            }
+            fn serialize(&self) -> $crate::prelude::Vec<u8> { $crate::consensus::serialize(self) }
         }
     };
 }
@@ -39,9 +37,7 @@ macro_rules! impl_psbt_serialize {
 macro_rules! impl_psbtmap_serialize {
     ($thing:ty) => {
         impl $crate::psbt::serialize::Serialize for $thing {
-            fn serialize(&self) -> Vec<u8> {
-                self.serialize_map()
-            }
+            fn serialize(&self) -> Vec<u8> { self.serialize_map() }
         }
     };
 }
@@ -189,9 +185,7 @@ macro_rules! impl_psbt_hash_deserialize {
 macro_rules! impl_psbt_hash_serialize {
     ($hash_type:ty) => {
         impl $crate::psbt::serialize::Serialize for $hash_type {
-            fn serialize(&self) -> $crate::prelude::Vec<u8> {
-                self.as_byte_array().to_vec()
-            }
+            fn serialize(&self) -> $crate::prelude::Vec<u8> { self.as_byte_array().to_vec() }
         }
     };
 }

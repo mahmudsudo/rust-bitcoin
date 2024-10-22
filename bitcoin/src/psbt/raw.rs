@@ -173,9 +173,7 @@ where
     Subtype: Copy + From<u64> + Into<u64>,
 {
     /// Constructs full [Key] corresponding to this proprietary key type
-    pub fn to_key(&self) -> Key {
-        Key { type_value: 0xFC, key_data: serialize(self) }
-    }
+    pub fn to_key(&self) -> Key { Key { type_value: 0xFC, key_data: serialize(self) } }
 }
 
 impl<Subtype> TryFrom<Key> for ProprietaryKey<Subtype>

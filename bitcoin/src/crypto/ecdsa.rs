@@ -72,9 +72,7 @@ impl Signature {
 
     /// Serializes an ECDSA signature (inner secp256k1 signature in DER format) into `Vec`.
     #[deprecated(since = "TBD", note = "use `to_bytes` instead")]
-    pub fn to_vec(self) -> Vec<u8> {
-        self.to_bytes()
-    }
+    pub fn to_vec(self) -> Vec<u8> { self.to_bytes() }
 
     /// Serializes an ECDSA signature (inner secp256k1 signature in DER format) to a `writer`.
     #[inline]
@@ -116,9 +114,7 @@ pub struct SerializedSignature {
 impl SerializedSignature {
     /// Returns an iterator over bytes of the signature.
     #[inline]
-    pub fn iter(&self) -> core::slice::Iter<'_, u8> {
-        self.into_iter()
-    }
+    pub fn iter(&self) -> core::slice::Iter<'_, u8> { self.into_iter() }
 
     /// Writes this serialized signature to a `writer`.
     #[inline]
@@ -131,65 +127,47 @@ impl core::ops::Deref for SerializedSignature {
     type Target = [u8];
 
     #[inline]
-    fn deref(&self) -> &Self::Target {
-        &self.data[..self.len]
-    }
+    fn deref(&self) -> &Self::Target { &self.data[..self.len] }
 }
 
 impl core::ops::DerefMut for SerializedSignature {
     #[inline]
-    fn deref_mut(&mut self) -> &mut Self::Target {
-        &mut self.data[..self.len]
-    }
+    fn deref_mut(&mut self) -> &mut Self::Target { &mut self.data[..self.len] }
 }
 
 impl AsRef<[u8]> for SerializedSignature {
     #[inline]
-    fn as_ref(&self) -> &[u8] {
-        self
-    }
+    fn as_ref(&self) -> &[u8] { self }
 }
 
 impl AsMut<[u8]> for SerializedSignature {
     #[inline]
-    fn as_mut(&mut self) -> &mut [u8] {
-        self
-    }
+    fn as_mut(&mut self) -> &mut [u8] { self }
 }
 
 impl AsRef<PushBytes> for SerializedSignature {
     #[inline]
-    fn as_ref(&self) -> &PushBytes {
-        &<&PushBytes>::from(&self.data)[..self.len()]
-    }
+    fn as_ref(&self) -> &PushBytes { &<&PushBytes>::from(&self.data)[..self.len()] }
 }
 
 impl core::borrow::Borrow<[u8]> for SerializedSignature {
     #[inline]
-    fn borrow(&self) -> &[u8] {
-        self
-    }
+    fn borrow(&self) -> &[u8] { self }
 }
 
 impl core::borrow::BorrowMut<[u8]> for SerializedSignature {
     #[inline]
-    fn borrow_mut(&mut self) -> &mut [u8] {
-        self
-    }
+    fn borrow_mut(&mut self) -> &mut [u8] { self }
 }
 
 impl fmt::Debug for SerializedSignature {
     #[inline]
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        fmt::Display::fmt(self, f)
-    }
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result { fmt::Display::fmt(self, f) }
 }
 
 impl fmt::Display for SerializedSignature {
     #[inline]
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        fmt::LowerHex::fmt(self, f)
-    }
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result { fmt::LowerHex::fmt(self, f) }
 }
 
 impl fmt::LowerHex for SerializedSignature {
@@ -210,17 +188,13 @@ impl fmt::UpperHex for SerializedSignature {
 
 impl PartialEq for SerializedSignature {
     #[inline]
-    fn eq(&self, other: &SerializedSignature) -> bool {
-        **self == **other
-    }
+    fn eq(&self, other: &SerializedSignature) -> bool { **self == **other }
 }
 
 impl Eq for SerializedSignature {}
 
 impl core::hash::Hash for SerializedSignature {
-    fn hash<H: core::hash::Hasher>(&self, state: &mut H) {
-        core::hash::Hash::hash(&**self, state)
-    }
+    fn hash<H: core::hash::Hasher>(&self, state: &mut H) { core::hash::Hash::hash(&**self, state) }
 }
 
 impl<'a> IntoIterator for &'a SerializedSignature {
@@ -228,9 +202,7 @@ impl<'a> IntoIterator for &'a SerializedSignature {
     type Item = &'a u8;
 
     #[inline]
-    fn into_iter(self) -> Self::IntoIter {
-        (*self).iter()
-    }
+    fn into_iter(self) -> Self::IntoIter { (*self).iter() }
 }
 
 /// Error encountered while parsing an ECDSA signature from a byte slice.
@@ -273,15 +245,11 @@ impl std::error::Error for DecodeError {
 }
 
 impl From<secp256k1::Error> for DecodeError {
-    fn from(e: secp256k1::Error) -> Self {
-        Self::Secp256k1(e)
-    }
+    fn from(e: secp256k1::Error) -> Self { Self::Secp256k1(e) }
 }
 
 impl From<NonStandardSighashTypeError> for DecodeError {
-    fn from(e: NonStandardSighashTypeError) -> Self {
-        Self::SighashType(e)
-    }
+    fn from(e: NonStandardSighashTypeError) -> Self { Self::SighashType(e) }
 }
 
 /// Error encountered while parsing an ECDSA signature from a string.
@@ -320,15 +288,11 @@ impl std::error::Error for ParseSignatureError {
 }
 
 impl From<hex::HexToBytesError> for ParseSignatureError {
-    fn from(e: hex::HexToBytesError) -> Self {
-        Self::Hex(e)
-    }
+    fn from(e: hex::HexToBytesError) -> Self { Self::Hex(e) }
 }
 
 impl From<DecodeError> for ParseSignatureError {
-    fn from(e: DecodeError) -> Self {
-        Self::Decode(e)
-    }
+    fn from(e: DecodeError) -> Self { Self::Decode(e) }
 }
 
 #[cfg(feature = "arbitrary")]

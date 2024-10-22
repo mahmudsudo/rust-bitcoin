@@ -355,13 +355,11 @@ impl fmt::Display for Error {
         match *self {
             NonMinimalPush => f.write_str("non-minimal datapush"),
             EarlyEndOfScript => f.write_str("unexpected end of script"),
-            NumericOverflow => {
-                f.write_str("numeric overflow (number on stack larger than 4 bytes)")
-            }
+            NumericOverflow =>
+                f.write_str("numeric overflow (number on stack larger than 4 bytes)"),
             UnknownSpentOutput(ref point) => write!(f, "unknown spent output: {}", point),
-            Serialization => {
-                f.write_str("can not serialize the spending transaction in Transaction::verify()")
-            }
+            Serialization =>
+                f.write_str("can not serialize the spending transaction in Transaction::verify()"),
         }
     }
 }

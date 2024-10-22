@@ -103,9 +103,7 @@ impl std::error::Error for Error {
 }
 
 impl From<io::Error> for Error {
-    fn from(error: io::Error) -> Self {
-        Error::Io(error)
-    }
+    fn from(error: io::Error) -> Self { Error::Io(error) }
 }
 
 /// Hex deserialization error.
@@ -144,9 +142,7 @@ impl std::error::Error for FromHexError {
 
 impl From<OddLengthStringError> for FromHexError {
     #[inline]
-    fn from(e: OddLengthStringError) -> Self {
-        Self::OddLengthString(e)
-    }
+    fn from(e: OddLengthStringError) -> Self { Self::OddLengthString(e) }
 }
 
 /// Encodes an object into a vector.
@@ -286,17 +282,11 @@ impl<W: Write + ?Sized> WriteExt for W {
     encoder_fn!(emit_i16, i16);
 
     #[inline]
-    fn emit_i8(&mut self, v: i8) -> Result<(), io::Error> {
-        self.write_all(&[v as u8])
-    }
+    fn emit_i8(&mut self, v: i8) -> Result<(), io::Error> { self.write_all(&[v as u8]) }
     #[inline]
-    fn emit_u8(&mut self, v: u8) -> Result<(), io::Error> {
-        self.write_all(&[v])
-    }
+    fn emit_u8(&mut self, v: u8) -> Result<(), io::Error> { self.write_all(&[v]) }
     #[inline]
-    fn emit_bool(&mut self, v: bool) -> Result<(), io::Error> {
-        self.write_all(&[v as u8])
-    }
+    fn emit_bool(&mut self, v: bool) -> Result<(), io::Error> { self.write_all(&[v as u8]) }
     #[inline]
     fn emit_slice(&mut self, v: &[u8]) -> Result<usize, io::Error> {
         self.write_all(v)?;
@@ -331,9 +321,7 @@ impl<R: Read + ?Sized> ReadExt for R {
         Ok(slice[0] as i8)
     }
     #[inline]
-    fn read_bool(&mut self) -> Result<bool, Error> {
-        ReadExt::read_i8(self).map(|bit| bit != 0)
-    }
+    fn read_bool(&mut self) -> Result<bool, Error> { ReadExt::read_i8(self).map(|bit| bit != 0) }
     #[inline]
     fn read_slice(&mut self, slice: &mut [u8]) -> Result<(), Error> {
         self.read_exact(slice).map_err(Error::Io)
@@ -454,19 +442,13 @@ impl CheckedData {
     }
 
     /// Returns a reference to the raw data without the checksum.
-    pub fn data(&self) -> &[u8] {
-        &self.data
-    }
+    pub fn data(&self) -> &[u8] { &self.data }
 
     /// Returns the raw data without the checksum.
-    pub fn into_data(self) -> Vec<u8> {
-        self.data
-    }
+    pub fn into_data(self) -> Vec<u8> { self.data }
 
     /// Returns the checksum of the data.
-    pub fn checksum(&self) -> [u8; 4] {
-        self.checksum
-    }
+    pub fn checksum(&self) -> [u8; 4] { self.checksum }
 }
 
 // Primitive types
@@ -515,9 +497,7 @@ pub const fn varint_size_u64(v: u64) -> usize {
 
 /// Returns 1 for 0..=0xFC, 3 for 0xFD..=(2^16-1), 5 for 0x10000..=(2^32-1), and 9 otherwise.
 #[inline]
-pub fn varint_size(v: impl ToU64) -> usize {
-    varint_size_u64(v.to_u64())
-}
+pub fn varint_size(v: impl ToU64) -> usize { varint_size_u64(v.to_u64()) }
 
 impl Encodable for bool {
     #[inline]

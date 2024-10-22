@@ -48,9 +48,7 @@ pub enum NetworkKind {
 // ambiguous due to confusion caused by signet/testnet/regtest.
 impl NetworkKind {
     /// Returns true if this is real mainnet bitcoin.
-    pub fn is_mainnet(&self) -> bool {
-        *self == NetworkKind::Main
-    }
+    pub fn is_mainnet(&self) -> bool { *self == NetworkKind::Main }
 }
 
 impl From<Network> for NetworkKind {
@@ -137,9 +135,7 @@ impl Network {
     /// assert_eq!(Ok(Network::Bitcoin), Network::try_from(Magic::from_bytes([0xF9, 0xBE, 0xB4, 0xD9])));
     /// assert_eq!(None, Network::from_magic(Magic::from_bytes([0xFF, 0xFF, 0xFF, 0xFF])));
     /// ```
-    pub fn from_magic(magic: Magic) -> Option<Network> {
-        Network::try_from(magic).ok()
-    }
+    pub fn from_magic(magic: Magic) -> Option<Network> { Network::try_from(magic).ok() }
 
     /// Return the network magic bytes, which should be encoded little-endian
     /// at the start of every message
@@ -153,9 +149,7 @@ impl Network {
     /// let network = Network::Bitcoin;
     /// assert_eq!(network.magic(), Magic::from_bytes([0xF9, 0xBE, 0xB4, 0xD9]));
     /// ```
-    pub fn magic(self) -> Magic {
-        Magic::from(self)
-    }
+    pub fn magic(self) -> Magic { Magic::from(self) }
 
     /// Converts a `Network` to its equivalent `bitcoind -chain` argument name.
     ///
@@ -211,9 +205,7 @@ impl Network {
     /// let network = Network::Bitcoin;
     /// assert_eq!(network.chain_hash(), ChainHash::BITCOIN);
     /// ```
-    pub fn chain_hash(self) -> ChainHash {
-        ChainHash::using_genesis_block_const(self)
-    }
+    pub fn chain_hash(self) -> ChainHash { ChainHash::using_genesis_block_const(self) }
 
     /// Creates a `Network` from the chain hash (genesis block hash).
     ///
@@ -310,9 +302,7 @@ impl fmt::Display for ParseNetworkError {
 
 #[cfg(feature = "std")]
 impl std::error::Error for ParseNetworkError {
-    fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
-        None
-    }
+    fn source(&self) -> Option<&(dyn std::error::Error + 'static)> { None }
 }
 
 impl FromStr for Network {
@@ -351,9 +341,7 @@ impl fmt::Display for UnknownChainHashError {
 
 #[cfg(feature = "std")]
 impl std::error::Error for UnknownChainHashError {
-    fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
-        None
-    }
+    fn source(&self) -> Option<&(dyn std::error::Error + 'static)> { None }
 }
 
 impl TryFrom<ChainHash> for Network {

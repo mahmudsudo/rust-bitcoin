@@ -59,9 +59,7 @@ impl Signature {
 
     /// Serializes the signature.
     #[deprecated(since = "TBD", note = "use `to_bytes` instead")]
-    pub fn to_vec(self) -> Vec<u8> {
-        self.to_bytes()
-    }
+    pub fn to_vec(self) -> Vec<u8> { self.to_bytes() }
 
     /// Serializes the signature to `writer`.
     #[inline]
@@ -131,15 +129,11 @@ impl std::error::Error for SigFromSliceError {
 }
 
 impl From<secp256k1::Error> for SigFromSliceError {
-    fn from(e: secp256k1::Error) -> Self {
-        Self::Secp256k1(e)
-    }
+    fn from(e: secp256k1::Error) -> Self { Self::Secp256k1(e) }
 }
 
 impl From<InvalidSighashTypeError> for SigFromSliceError {
-    fn from(err: InvalidSighashTypeError) -> Self {
-        Self::SighashType(err)
-    }
+    fn from(err: InvalidSighashTypeError) -> Self { Self::SighashType(err) }
 }
 
 #[cfg(feature = "arbitrary")]

@@ -88,9 +88,7 @@ macro_rules! impl_array_newtype_stringify {
 
         impl core::str::FromStr for $t {
             type Err = $crate::hex::HexToArrayError;
-            fn from_str(s: &str) -> core::result::Result<Self, Self::Err> {
-                Self::from_hex(s)
-            }
+            fn from_str(s: &str) -> core::result::Result<Self, Self::Err> { Self::from_hex(s) }
         }
 
         #[cfg(feature = "serde")]

@@ -105,9 +105,7 @@ impl WitnessProgram {
     }
 
     /// Returns the witness program version.
-    pub fn version(&self) -> WitnessVersion {
-        self.version
-    }
+    pub fn version(&self) -> WitnessVersion { self.version }
 
     /// Returns the witness program.
     pub fn program(&self) -> &PushBytes {
@@ -128,9 +126,7 @@ impl WitnessProgram {
     }
 
     /// Returns true if this witness program is for a P2TR output.
-    pub fn is_p2tr(&self) -> bool {
-        self.version == WitnessVersion::V1 && self.program.len() == 32
-    }
+    pub fn is_p2tr(&self) -> bool { self.version == WitnessVersion::V1 && self.program.len() == 32 }
 }
 
 /// Witness program error.

@@ -155,9 +155,8 @@ mod message_signing {
                     let pubkey = self.recover_pubkey(secp_ctx, msg_hash)?;
                     Ok(address.pubkey_hash() == Some(pubkey.pubkey_hash()))
                 }
-                Some(address_type) => {
-                    Err(MessageSignatureError::UnsupportedAddressType(address_type))
-                }
+                Some(address_type) =>
+                    Err(MessageSignatureError::UnsupportedAddressType(address_type)),
                 None => Ok(false),
             }
         }
@@ -184,9 +183,7 @@ mod message_signing {
             }
 
             /// Convert to base64 encoding.
-            pub fn to_base64(self) -> String {
-                BASE64_STANDARD.encode(self.serialize())
-            }
+            pub fn to_base64(self) -> String { BASE64_STANDARD.encode(self.serialize()) }
         }
 
         impl fmt::Display for MessageSignature {
