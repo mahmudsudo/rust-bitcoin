@@ -71,6 +71,10 @@ pub enum Error {
     CombineInconsistentKeySources(Box<Xpub>),
     /// Serialization error in bitcoin consensus-encoded structures
     ConsensusEncoding(encode::Error),
+    /// Deserialization error in bitcoin consensus-encoded structures.
+    ConsensusDeserialize(encode::DeserializeError),
+    /// Error parsing bitcoin consensus-encoded object.
+    ConsensusParse(encode::ParseError),
     /// Negative fee
     NegativeFee,
     /// Integer overflow in fee calculation
@@ -142,6 +146,9 @@ impl fmt::Display for Error {
                 write!(f, "combine conflict: {}", s)
             }
             ConsensusEncoding(ref e) => write_err!(f, "bitcoin consensus encoding error"; e),
+            ConsensusDeserialize(ref e) =>
+                write_err!(f, "bitcoin consensus deserializaton error"; e),
+            ConsensusParse(ref e) => write_err!(f, "error parsing bitcoin consensus encoded object"; e),
             NegativeFee => f.write_str("PSBT has a negative fee which is not allowed"),
             FeeOverflow => f.write_str("integer overflow in fee calculation"),
             InvalidPublicKey(ref e) => write_err!(f, "invalid public key"; e),
@@ -170,6 +177,8 @@ impl std::error::Error for Error {
         match *self {
             InvalidHash(ref e) => Some(e),
             ConsensusEncoding(ref e) => Some(e),
+            ConsensusDeserialize(ref e) => Some(e),
+            ConsensusParse(ref e) => Some(e),
             Io(ref e) => Some(e),
             InvalidMagic
             | MissingUtxo
@@ -210,6 +219,14 @@ impl From<core::array::TryFromSliceError> for Error {
 
 impl From<encode::Error> for Error {
     fn from(e: encode::Error) -> Self { Error::ConsensusEncoding(e) }
+}
+
+impl From<encode::DeserializeError> for Error {
+    fn from(e: encode::DeserializeError) -> Self { Error::ConsensusDeserialize(e) }
+}
+
+impl From<encode::ParseError> for Error {
+    fn from(e: encode::ParseError) -> Self { Error::ConsensusParse(e) }
 }
 
 impl From<io::Error> for Error {
