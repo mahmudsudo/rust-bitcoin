@@ -174,15 +174,13 @@ mod tests {
     #[test]
     fn witness_program_is_too_short() {
         let arbitrary_bytes = [0x00; MIN_SIZE - 1];
-        assert!(WitnessProgram::new(WitnessVersion::V15, &arbitrary_bytes).is_err());
-        // Arbitrary version
+        assert!(WitnessProgram::new(WitnessVersion::V15, &arbitrary_bytes).is_err()); // Arbitrary version
     }
 
     #[test]
     fn witness_program_is_too_long() {
         let arbitrary_bytes = [0x00; MAX_SIZE + 1];
-        assert!(WitnessProgram::new(WitnessVersion::V15, &arbitrary_bytes).is_err());
-        // Arbitrary version
+        assert!(WitnessProgram::new(WitnessVersion::V15, &arbitrary_bytes).is_err()); // Arbitrary version
     }
 
     #[test]
