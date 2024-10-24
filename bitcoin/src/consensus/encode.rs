@@ -35,7 +35,7 @@ use crate::prelude::{rc, sync, Box, Cow, String, Vec};
 use crate::taproot::TapLeafHash;
 use crate::transaction::{Transaction, TxIn, TxOut};
 
-<<<<<<< HEAD
+
 /// Encoding error.
 #[derive(Debug)]
 #[non_exhaustive]
@@ -145,18 +145,10 @@ impl From<OddLengthStringError> for FromHexError {
     #[inline]
     fn from(e: OddLengthStringError) -> Self { Self::OddLengthString(e) }
 }
-=======
+
 #[rustfmt::skip]                // Keep public re-exports separate.
-<<<<<<< HEAD
-<<<<<<< HEAD
-pub use super::{Error, FromHexError};
->>>>>>> a6254212 (Move consensus error code to submodule)
-=======
-pub use super::{Error, FromHexError, ParseError};
->>>>>>> 33566ac5 (Split encode::Error into two parts)
-=======
 pub use super::{Error, FromHexError, ParseError, DeserializeError};
->>>>>>> 713196be (Return DeserError from encode::deserialize)
+
 
 /// Encodes an object into a vector.
 pub fn serialize<T: Encodable + ?Sized>(data: &T) -> Vec<u8> {

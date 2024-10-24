@@ -106,6 +106,7 @@ impl<E: fmt::Debug, I: Iterator<Item = Result<u8, E>>> BufRead for IterReader<E,
 }
 <<<<<<< HEAD
 
+
 /// Error when consensus decoding from an `[IterReader]`.
 #[derive(Debug)]
 pub enum DecodeError<E> {
